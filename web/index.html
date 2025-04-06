@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="$FLUTTER_BASE_HREF" />
+
+    <meta charset="UTF-8" />
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible" />
+    <meta name="description" content="Developer Portfolio" />
+
+    <!-- iOS meta tags & icons -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="flutter_web_portfolio" />
+    <link rel="apple-touch-icon" href="icons/Icon-192.png" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <title>Mozammel Hoshen Chowdhury | Software Engineer</title>
+    <link rel="manifest" href="manifest.json" />
+
+    <style>
+      /* Base styles */
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #121212;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      /* Light mode support with CSS variables */
+      :root {
+        --bg-color: #121212;
+        --text-color: #ffffff;
+        --accent-color: #03dac6;
+        --container-bg: #1e1e1e;
+        --shadow-color: rgba(0, 0, 0, 0.3);
+      }
+
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg-color: #fafafa;
+          --text-color: #121212;
+          --accent-color: #018786;
+          --container-bg: #ffffff;
+          --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+        body {
+          background-color: #fafafa;
+        }
+      }
+
+      /* Main container */
+      .loading-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 2rem;
+        border-radius: 16px;
+        background-color: var(--container-bg);
+        box-shadow: 0 8px 32px var(--shadow-color);
+        max-width: 90%;
+        position: absolute;
+        z-index: 1000;
+      }
+
+      /* Hide the loading container when Flutter app is loaded */
+      .flutter-loading-hidden {
+        display: none !important;
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      /* Logo/icon styling */
+      .logo {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 1.5rem;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .logo-inner {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: white;
+      }
+
+      /* Text and heading styles */
+      h1 {
+        color: var(--text-color);
+        font-size: 1.8rem;
+        margin: 0 0 0.5rem 0;
+      }
+
+      p {
+        color: var(--text-color);
+        opacity: 0.8;
+        margin: 0 0 1.5rem 0;
+        font-size: 1rem;
+      }
+
+      #loading-message {
+        font-weight: 500;
+        margin-bottom: 1rem;
+      }
+
+      /* Loading bar container */
+      .loading-bar-container {
+        width: 250px;
+        height: 6px;
+        background-color: rgba(128, 128, 128, 0.2);
+        border-radius: 3px;
+        overflow: hidden;
+        margin-bottom: 1rem;
+        position: relative;
+      }
+
+      /* Loading bar animation */
+      .loading-bar {
+        height: 100%;
+        width: 30%;
+        background: linear-gradient(90deg, var(--accent-color), #00bcd4);
+        border-radius: 3px;
+        position: absolute;
+        animation: loading 1.5s infinite ease-in-out;
+      }
+
+      .loading-progress .loading-bar {
+        width: 0%;
+        animation: none;
+        transition: width 0.3s ease-out;
+      }
+
+      @keyframes loading {
+        0% {
+          left: -30%;
+        }
+        100% {
+          left: 100%;
+        }
+      }
+
+      /* Skill indicators */
+      .skills {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 1rem;
+        gap: 0.5rem;
+      }
+
+      .skill {
+        font-size: 0.75rem;
+        color: var(--text-color);
+        background-color: rgba(128, 128, 128, 0.1);
+        padding: 0.25rem 0.75rem;
+        border-radius: 12px;
+        opacity: 0;
+        animation: fadeIn 2s forwards;
+      }
+
+      .skill:nth-child(1) {
+        animation-delay: 0.2s;
+      }
+      .skill:nth-child(2) {
+        animation-delay: 0.4s;
+      }
+      .skill:nth-child(3) {
+        animation-delay: 0.6s;
+      }
+      .skill:nth-child(4) {
+        animation-delay: 0.8s;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(5px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Flutter app container */
+      #flutter_target {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Loading screen container -->
+    <div id="loading-container" class="loading-container">
+      <div class="logo">
+        <img src="mine.png" alt="Logo" class="logo" />
+      </div>
+      <h1>Mozammel</h1>
+      <p id="loading-message">Loading application...</p>
+
+      <div
+        id="loading-bar-container"
+        class="loading-bar-container loading-progress"
+      >
+        <div id="loading-bar" class="loading-bar"></div>
+      </div>
+
+      <div class="skills">
+        <div class="skill">Dart</div>
+        <div class="skill">Flutter</div>
+        <div class="skill">Golang</div>
+        <div class="skill">Go-Gin</div>
+      </div>
+    </div>
+
+    <!-- Flutter app container -->
+    <div id="flutter_target"></div>
+
+    <!-- Flutter bootstrap script -->
+    <script src="flutter_bootstrap.js" async></script>
+
+    <script>
+      // Custom loading animation and hide mechanism
+      window.addEventListener("DOMContentLoaded", function () {
+        const loadingMessage = document.getElementById("loading-message");
+        const loadingBar = document.getElementById("loading-bar");
+        const loadingContainer = document.getElementById("loading-container");
+
+        // Check if app has loaded already
+        let appLoaded = false;
+
+        // Function to update loading progress
+        function updateProgress(message, progress) {
+          if (loadingMessage) loadingMessage.textContent = message;
+          if (loadingBar) loadingBar.style.width = progress + "%";
+        }
+
+        // Function to hide the loading screen
+        function hideLoadingScreen() {
+          if (loadingContainer && !appLoaded) {
+            appLoaded = true;
+            updateProgress("Complete!", 100);
+
+            // Use a slight delay to ensure the Flutter app is rendered
+            setTimeout(function () {
+              loadingContainer.classList.add("flutter-loading-hidden");
+              // Double check after a bit longer to ensure it's hidden
+              setTimeout(function () {
+                if (loadingContainer.style.display !== "none") {
+                  loadingContainer.style.display = "none";
+                }
+              }, 500);
+            }, 200);
+          }
+        }
+
+        // Listen for Flutter initialization events
+        window.addEventListener("flutter-initialized", hideLoadingScreen);
+        window.addEventListener("flutter-first-frame", hideLoadingScreen);
+
+        // Set a backup timer to hide the loading screen if events aren't triggered
+        setTimeout(function () {
+          updateProgress("Initializing engine...", 40);
+
+          setTimeout(function () {
+            updateProgress("Starting application...", 80);
+
+            // Fallback timer in case Flutter events don't fire
+            setTimeout(hideLoadingScreen, 2000);
+          }, 1000);
+        }, 500);
+      });
+    </script>
+  </body>
+</html>
