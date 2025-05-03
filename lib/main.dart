@@ -82,7 +82,7 @@ class _MyAppState extends State<MyApp> {
       title: "Mozammel Hoshen Chowdhury | Software Engineer",
       darkTheme: darkTheme,
       themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
-      home: NavBar(isMobile: false, isDarkMode: isDarkMode, onThemeToggle: toggleTheme),
+      home: NavBar(isDarkMode: isDarkMode, onThemeToggle: toggleTheme),
       //home: HomeScreenUI(isDarkMode: isDarkMode, toggleTheme: toggleTheme),
       debugShowCheckedModeBanner: false,
       onGenerateRoute: AppRouter().onGenerateRoute,
