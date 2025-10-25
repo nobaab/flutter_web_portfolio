@@ -40,7 +40,7 @@ If you want to run this project locally:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/flutter-portfolio.git
+git clone https://github.com/nobaab/flutter-portfolio.git
 
 # Navigate to the project directory
 cd flutter-portfolio
